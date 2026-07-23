@@ -1,0 +1,38 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Build
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+
+# Logs
+*.log
+app-teste.log
+app-teste-erro.log
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+HELP.md
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
