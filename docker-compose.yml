@@ -8,18 +8,10 @@ services:
       POSTGRES_DB: rideprofit
       POSTGRES_USER: rideprofit
       POSTGRES_PASSWORD: rideprofit
-    ports:
-      - "5432:5432"
     volumes:
       - rideprofit-postgres-data:/var/lib/postgresql/data
-    deploy:
-      resources:
-        limits:
-          cpus: '1.0'
-          memory: 512M
-        reservations:
-          cpus: '0.5'
-          memory: 256M
+    mem_limit: 4g
+    cpus: 2
 
   app:
     build:
@@ -39,14 +31,8 @@ services:
       - "8080:8080"
     depends_on:
       - postgres
-    deploy:
-      resources:
-        limits:
-          cpus: '1.0'
-          memory: 1G
-        reservations:
-          cpus: '0.5'
-          memory: 512M
+    mem_limit: 4g
+    cpus: 2
 
 volumes:
   rideprofit-postgres-data:

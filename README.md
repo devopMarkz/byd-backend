@@ -147,23 +147,17 @@ O backend está configurado para rodar no Oracle Always Free Tier com as seguint
 
 #### Passos para Deployment:
 
-1. **Preparar o ambiente**:
-   ```bash
-   cp .env.example .env
-   # Editar .env com suas credenciais reais
-   ```
+Veja o guia completo em `DEPLOYMENT_ORACLE.md` com instruções detalhadas para:
 
-2. **Build da imagem Docker**:
-   ```bash
-   docker build -t rideprofit-backend:latest .
-   ```
-
-3. **Deploy no Oracle Cloud**:
-   - Use o arquivo `deploy-oracle.sh` para automatizar o deployment
-   - Configure as variáveis de ambiente no Oracle Cloud Container Registry
-   - Configure o health check endpoint: `/api/actuator/health`
+1. Criar Compute Instance (VM.Standard.A1.Flex preferencial)
+2. Configurar Security List (apenas portas 80/443 expostas)
+3. Instalar Docker e Docker Compose
+4. Deploy com Nginx reverse proxy
+5. Configurar SSL com Let's Encrypt
+6. Configurar auto-restart com Systemd
 
 #### Recursos Oracle Always Free Utilizados:
-- **Compute**: 1 OCPU (máximo 24GB RAM total)
+- **Compute**: VM.Standard.A1.Flex (2-4 OCPUs, 12-24GB RAM) ou VM.Standard.E2.1.Micro (alternativa)
 - **PostgreSQL**: Rodará no mesmo compute instance via Docker
 - **Storage**: Volume Docker para persistência do banco
+- **Arquitetura**: Nginx (80/443) → Spring Boot (8080) → PostgreSQL (5432)
