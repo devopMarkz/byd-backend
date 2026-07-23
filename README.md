@@ -125,3 +125,45 @@ http://localhost:8080/api/swagger-ui.html
 | `DB_PASSWORD` | `rideprofit`                                             | Senha do banco           |
 | `JWT_SECRET`  | `chave-temporaria-para-desenvolvimento-mude-em-producao` | Chave secreta dos tokens |
 | `SERVER_PORT` | `8080`                                                   | Porta da aplicacao       |
+
+## Deployment
+
+### Docker Compose (Produção)
+
+```bash
+docker compose up -d
+```
+
+A aplicação estará disponível em `http://localhost:8080/api` e o health check em `http://localhost:8080/api/actuator/health`.
+
+### Oracle Cloud (Always Free Tier)
+
+O backend está configurado para rodar no Oracle Always Free Tier com as seguintes otimizações:
+
+- **Health Checks**: Spring Boot Actuator configurado em `/api/actuator/health`
+- **JVM Memory**: Limitado a 512MB heap (256MB initial) para se adequar aos limites do Always Free
+- **Connection Pooling**: HikariCP configurado com máximo de 10 conexões
+- **Resource Limits**: Docker containers com limites de CPU e memória
+
+#### Passos para Deployment:
+
+1. **Preparar o ambiente**:
+   ```bash
+   cp .env.example .env
+   # Editar .env com suas credenciais reais
+   ```
+
+2. **Build da imagem Docker**:
+   ```bash
+   docker build -t rideprofit-backend:latest .
+   ```
+
+3. **Deploy no Oracle Cloud**:
+   - Use o arquivo `deploy-oracle.sh` para automatizar o deployment
+   - Configure as variáveis de ambiente no Oracle Cloud Container Registry
+   - Configure o health check endpoint: `/api/actuator/health`
+
+#### Recursos Oracle Always Free Utilizados:
+- **Compute**: 1 OCPU (máximo 24GB RAM total)
+- **PostgreSQL**: Rodará no mesmo compute instance via Docker
+- **Storage**: Volume Docker para persistência do banco
