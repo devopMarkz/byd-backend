@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/rideprofit
-    username: rideprofit
-    password: rideprofit
+    username: postgres
+    password: aluno
 
   jpa:
     hibernate:
