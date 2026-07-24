@@ -22,4 +22,4 @@ RUN apk add --no-cache curl
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
   CMD curl -f http://localhost:8080/api/actuator/health || exit 1
 
-ENTRYPOINT ["java", "-Xmx2g", "-Xms1g", "-XX:+UseG1GC", "-XX:MaxGCPauseMillis=200", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-XX:MaxRAMPercentage=70.0", "-XX:InitialRAMPercentage=25.0", "-XX:+UseSerialGC", "-jar", "app.jar"]
